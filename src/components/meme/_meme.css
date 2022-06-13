@@ -1,0 +1,31 @@
+.meme{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 30px;
+}
+.meme--form{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+.meme--form input{
+  min-width: 230px;
+  width: 80%;
+}
+.meme--button{
+  min-width: 490px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: var(--background);
+  border: none;
+  border-radius: 5px;
+  font-weight: 700;
+  font-family: var(--karla);
+  font-size: 1rem;
+  color: white;
+}
