@@ -7,7 +7,12 @@
 }
 .meme--form{
   display: flex;
+  flex-direction: column;
+}
+.meme--input-holder{
+  display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   width: 100%;
   gap: 20px;
   justify-content: center;
@@ -15,7 +20,11 @@
 }
 .meme--form input{
   min-width: 230px;
-  width: 80%;
+  max-width: 650px;
+  width: 45%;
+  flex-grow: 1;
+  border-radius: 5px;
+  border: 1px solid var(--border);
 }
 .meme--button{
   min-width: 490px;
@@ -28,4 +37,5 @@
   font-family: var(--karla);
   font-size: 1rem;
   color: white;
+  cursor: pointer;
 }
