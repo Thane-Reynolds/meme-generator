@@ -3,6 +3,7 @@
   --inter: 'Inter', sans-serif;
   --impact: Impact;
   --background: linear-gradient(90deg, #672280 1.18%, #A626D3 100%);
+  --border: #D5D4D8;
 }
 body {
   margin: 0;
