@@ -1,5 +1,4 @@
 import React from "react"
-import MemeData from '../../memesData'
 export default function Meme(){
   const [meme, setMeme] = React.useState(
     {
@@ -8,47 +7,73 @@ export default function Meme(){
       randomImage:"http://i.imgflip.com/1bij.jpg",
     }
   );
-  const [allMemeImages, setAllMemeImages] = React.useState(MemeData)
+  const [allMemes, setAllMemes] = React.useState([])
   
-  function randomMeme(){
-    const memesArray = allMemeImages.data.memes;
-    const randomNum = Math.floor(Math.random()* allMemeImages.data.memes.length);
+  React.useEffect(() => {
+    fetch("https://api.imgflip.com/get_memes")
+      .then(res => res.json())
+      .then(data => setAllMemes(data.data.memes))
+  },[])
+
+  function randomMeme(e){
+    e.preventDefault();
+    const randomNum = Math.floor(Math.random()* allMemes.length);
     setMeme(prevState =>{
       return{
         ...prevState,
-        randomImage: memesArray[randomNum].url,
+        randomImage: allMemes[randomNum].url,
       }
     });
   }
-  function updateTopText(e){
+  function updateText(e){
+    const {name, value} = e.target
     setMeme(prevState => {
       return{
         ...prevState,
-        topText: e.target.value
+        [name]: value
       }
     })
     console.log(meme)
   }
-  function updateBottomText(e){
-    setMeme(prevState => {
-      return{
-        ...prevState,
-        bottomText: e.target.value
-      }
-    })
-    console.log(meme)
-  }
+  
   return(
     <section className="meme">
-      <div className="meme--form">
+      <form className="meme--form">
         <div className="meme--input-holder">
-          <input onInput={updateTopText} type="text" placeholder="top text" />
-          <input onInput={updateBottomText} type="text" placeholder="bottom text" />
+          <label htmlFor="topText">
+            Top Text 
+          </label>
+          <input 
+          id="topText" 
+          name ="topText"          
+          onChange={updateText}           
+          type="text" 
+          placeholder="top text" 
+          value={meme.topText} 
+          />
+          
+          <label htmlFor="bottomText">
+            Bottom Text 
+          </label>
+          <input 
+          id="bottomText" 
+          name ="bottomText"           
+          onChange={updateText}           
+          type="text" 
+          placeholder="bottom text" 
+          value={meme.bottomText} 
+          />
         </div>
-        <button onClick={randomMeme} className="meme--button">Get a new meme image</button>
-      </div>
+        <button 
+        onClick={randomMeme} 
+        className="meme--button">
+          Get a new meme image
+        </button>
+      </form>
       <div className="meme--image-holder">
         <img src={meme.randomImage} alt="A random meme" />
+        <h2 className="meme--text top">{meme.topText}</h2>
+        <h2 className="meme--text bottom">{meme.bottomText}</h2>
       </div>
     </section>
   )
